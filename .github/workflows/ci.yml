@@ -15,44 +15,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
       - run: npm install
-      - run: npm list --depth=0  # Проверка установленных зависимостей
 
   lint:
     name: Lint code
     runs-on: ubuntu-latest
     needs: install
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install
-      - run: npm run lint || echo "⚠️ Lint errors found (ignored for now)"
-
-  build:
-    name: Check build
-    runs-on: ubuntu-latest
-    needs: install
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm install
-      - run: npm run build || echo "⚠️ Build failed (ignored for now)"
+      - run: npm run lint
 
   test:
     name: Run tests
     runs-on: ubuntu-latest
     needs: install
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install
-      - run: npm test -- --passWithNoTests || echo "⚠️ Tests failed (ignored for now)"
+      - run: npm test
