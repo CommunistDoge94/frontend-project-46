@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import yaml from 'js-yaml';
 
 export const parseFile = (filepath) => {
   const absolutePath = path.resolve(process.cwd(), filepath);
@@ -15,6 +16,9 @@ export const parseFile = (filepath) => {
     switch (extension) {
       case 'json':
         return JSON.parse(content);
+      case 'yaml':
+      case 'yml':
+        return yaml.load(content);
       default:
         throw new Error(`Unsupported format: ${extension}`);
     }
