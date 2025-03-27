@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   install:
@@ -15,8 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
       - run: npm install
+      - run: npm list --depth=0
 
   lint:
     name: Lint code
@@ -27,7 +27,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm run lint
+      - run: npm install
+      - run: make lint
 
   test:
     name: Run tests
@@ -38,4 +39,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm test
+      - run: npm install
+      - run: make test
