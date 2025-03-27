@@ -52,3 +52,49 @@ describe('JSON comparison', () => {
     expect(diff).toContain('+ timeout: 20');
   });
 });
+
+describe('YAML comparison', () => {
+  let file1Path;
+  let file2Path;
+  let expectedDiff;
+
+  beforeAll(() => {
+    file1Path = getFixturePath('file1.yml');
+    file2Path = getFixturePath('file2.yml');
+    expectedDiff = `{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}`;
+  });
+
+  test('Test: compare flat YAML files', () => {
+    const diff = genDiff(file1Path, file2Path);
+    expect(diff).toBe(expectedDiff);
+  });
+
+  test('Test: unchanged properties', () => {
+    const diff = genDiff(file1Path, file2Path);
+    expect(diff).toContain('host: hexlet.io');
+  });
+
+  test('Test: removed properties', () => {
+    const diff = genDiff(file1Path, file2Path);
+    expect(diff).toContain('- follow: false');
+    expect(diff).toContain('- proxy: 123.234.53.22');
+  });
+
+  test('Test: added properties', () => {
+    const diff = genDiff(file1Path, file2Path);
+    expect(diff).toContain('+ verbose: true');
+  });
+
+  test('Test: changed properties', () => {
+    const diff = genDiff(file1Path, file2Path);
+    expect(diff).toContain('- timeout: 50');
+    expect(diff).toContain('+ timeout: 20');
+  });
+});
