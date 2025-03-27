@@ -196,6 +196,7 @@ const config = {
 };
 
 export default {
+  config,
   testEnvironment: "node",
   transform: {},
 };
