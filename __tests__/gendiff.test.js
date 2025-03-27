@@ -17,8 +17,8 @@ describe('JSON comparison', () => {
     file2Path = getFixturePath('file2.json');
     expectedDiff = `{
   - follow: false
-  - proxy: 123.234.53.22
     host: hexlet.io
+  - proxy: 123.234.53.22
   - timeout: 50
   + timeout: 20
   + verbose: true
