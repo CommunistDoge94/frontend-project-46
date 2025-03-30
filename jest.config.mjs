@@ -13,9 +13,13 @@ const config = {
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "/tmp/jest_rs",
-
-  // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
+  coverageProvider: "v8",
+  testEnvironment: "node",
+  transform: {},
+  moduleFileExtensions: ["js", "json", "mjs"],
+  extensionsToTreatAsEsm: [".mjs"],
+  // Automatically clear mock calls, instances, contexts and results before every test
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -32,7 +36,6 @@ const config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [

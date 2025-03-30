@@ -1,100 +1,25 @@
-import path from 'path';
+import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { genDiff } from '../src/index.js';
+import { dirname, join } from 'path';
+import genDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
-const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const getFixturePath = (filename) => join(__dirname, '..', '__fixtures__', filename);
 
-describe('JSON comparison', () => {
-  let file1Path;
-  let file2Path;
-  let expectedDiff;
+const expectedStylish = readFileSync(getFixturePath('result-stylish.txt'), 'utf-8').trim();
 
-  beforeAll(() => {
-    file1Path = getFixturePath('file1.json');
-    file2Path = getFixturePath('file2.json');
-    expectedDiff = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
+describe('Stylish format', () => {
+  test('flat JSON files', () => {
+    const file1 = getFixturePath('file1.json');
+    const file2 = getFixturePath('file2.json');
+    expect(genDiff(file1, file2, 'stylish')).toEqual(expectedStylish);
   });
 
-  test('Test: compare flat JSON files', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toBe(expectedDiff);
-  });
-
-  test('Test: unchanged properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('host: hexlet.io');
-  });
-
-  test('Test: removed properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('- follow: false');
-    expect(diff).toContain('- proxy: 123.234.53.22');
-  });
-
-  test('Test: added properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('+ verbose: true');
-  });
-
-  test('Test: changed properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('- timeout: 50');
-    expect(diff).toContain('+ timeout: 20');
-  });
-});
-
-describe('YAML comparison', () => {
-  let file1Path;
-  let file2Path;
-  let expectedDiff;
-
-  beforeAll(() => {
-    file1Path = getFixturePath('file1.yml');
-    file2Path = getFixturePath('file2.yml');
-    expectedDiff = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
-  });
-
-  test('Test: compare flat YAML files', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toBe(expectedDiff);
-  });
-
-  test('Test: unchanged properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('host: hexlet.io');
-  });
-
-  test('Test: removed properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('- follow: false');
-    expect(diff).toContain('- proxy: 123.234.53.22');
-  });
-
-  test('Test: added properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('+ verbose: true');
-  });
-
-  test('Test: changed properties', () => {
-    const diff = genDiff(file1Path, file2Path);
-    expect(diff).toContain('- timeout: 50');
-    expect(diff).toContain('+ timeout: 20');
+  test('YAML files', () => {
+    const file1 = getFixturePath('file1.yml');
+    const file2 = getFixturePath('file2.yml');
+    expect(genDiff(file1, file2, 'stylish')).toEqual(expectedStylish);
   });
 });
