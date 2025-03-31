@@ -2,7 +2,6 @@ const stylish = (diff) => {
   const iter = (node, depth = 1) => {
     const indent = ' '.repeat(4 * depth - 2);
     const bracketIndent = ' '.repeat(4 * (depth - 1));
-    const innerIndent = ' '.repeat(4 * depth + 2);
 
     const lines = node.map((item) => {
       const { key, type } = item;
