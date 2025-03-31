@@ -11,7 +11,7 @@ const getFixturePath = (filename) => join(__dirname, '..', '__fixtures__', filen
 const expectedStylish = readFileSync(getFixturePath('result-stylish.txt'), 'utf-8').trim();
 
 describe('Stylish format', () => {
-  test('flat JSON files', () => {
+  test('JSON files', () => {
     const file1 = getFixturePath('file1.json');
     const file2 = getFixturePath('file2.json');
     expect(genDiff(file1, file2, 'stylish')).toEqual(expectedStylish);
