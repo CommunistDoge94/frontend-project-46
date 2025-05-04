@@ -18,7 +18,7 @@ export default defineConfig([
       },
       parserOptions: {
         ecmaVersion: 'latest',
-      }
+      },
     },
     plugins: { js },
     extends: ['js/recommended'],
