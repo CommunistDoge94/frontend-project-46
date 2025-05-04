@@ -1,26 +1,26 @@
-import { defineConfig } from "eslint/config";
-import globals from "globals";
-import js from "@eslint/js";
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
+import js from '@eslint/js';
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs}"],
+    files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
       globals: {
         ...globals.browser,
-        jest: "readonly",
-        expect: "readonly",
-        beforeAll: "readonly",
-        describe: "readonly",
-        test: "readonly",
-        process: "readonly",
-        __dirname: "readonly",
+        jest: 'readonly',
+        expect: 'readonly',
+        beforeAll: 'readonly',
+        describe: 'readonly',
+        test: 'readonly',
+        process: 'readonly',
+        __dirname: 'readonly',
       },
       parserOptions: {
-        ecmaVersion: "latest",
+        ecmaVersion: 'latest',
       },
     },
     plugins: { js },
-    extends: ["js/recommended"],
+    extends: ['js/recommended'],
   },
 ]);

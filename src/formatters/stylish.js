@@ -1,4 +1,17 @@
 const stylish = (diff) => {
+  const formatValue = (value, depth) => {
+    if (typeof value !== 'object' || value === null) {
+      return value === undefined ? '' : String(value);
+    }
+
+    const indent = ' '.repeat(4 * depth);
+    const bracketIndent = ' '.repeat(4 * (depth - 1));
+    const entries = Object.entries(value);
+    const formatted = entries.map(([k, v]) => `${indent}${k}: ${formatValue(v, depth + 1)}`);
+
+    return ['{', ...formatted, `${bracketIndent}}`].join('\n');
+  };
+
   const iter = (node, depth = 1) => {
     const indent = ' '.repeat(4 * depth - 2);
     const bracketIndent = ' '.repeat(4 * (depth - 1));
@@ -26,21 +39,6 @@ const stylish = (diff) => {
     });
 
     return ['{', ...lines, `${bracketIndent}}`].join('\n');
-  };
-
-  const formatValue = (value, depth) => {
-    if (typeof value !== 'object' || value === null) {
-      return value === undefined ? '' : String(value);
-    }
-
-    const indent = ' '.repeat(4 * depth);
-    const bracketIndent = ' '.repeat(4 * (depth - 1));
-    const entries = Object.entries(value);
-    const formatted = entries.map(([k, v]) => {
-      return `${indent}${k}: ${formatValue(v, depth + 1)}`;
-    });
-
-    return ['{', ...formatted, `${bracketIndent}}`].join('\n');
   };
 
   return iter(diff);

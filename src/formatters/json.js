@@ -4,19 +4,19 @@ const json = (diff) => {
       case 'nested':
         return node.children.reduce((acc, child) => ({
           ...acc,
-          [child.key]: formatNode(child)
+          [child.key]: formatNode(child),
         }), {});
       case 'changed':
         return {
           type: 'updated',
           oldValue: node.oldValue,
-          newValue: node.newValue
+          newValue: node.newValue,
         };
       case 'added':
       case 'removed':
         return {
           type: node.type,
-          value: node.value
+          value: node.value,
         };
       case 'unchanged':
         return node.value;
@@ -27,7 +27,7 @@ const json = (diff) => {
 
   const result = diff.reduce((acc, node) => ({
     ...acc,
-    [node.key]: formatNode(node)
+    [node.key]: formatNode(node),
   }), {});
 
   return JSON.stringify(result, null, 2);
