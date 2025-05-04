@@ -1,6 +1,6 @@
-import { defineConfig } from 'eslint/config';
-import globals from 'globals';
-import js from '@eslint/js';
+import { defineConfig } from 'eslint/config'
+import globals from 'globals'
+import js from '@eslint/js'
 
 export default defineConfig([
   {
@@ -14,13 +14,13 @@ export default defineConfig([
         describe: 'readonly',
         test: 'readonly',
         process: 'readonly',
-        __dirname: 'readonly',
+        __dirname: 'readonly'
       },
       parserOptions: {
-        ecmaVersion: 'latest',
-      },
+        ecmaVersion: 'latest'
+      }
     },
     plugins: { js },
-    extends: ['js/recommended'],
-  },
-]);
+    extends: ['js/recommended']
+  }
+])

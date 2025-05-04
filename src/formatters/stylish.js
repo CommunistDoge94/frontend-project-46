@@ -8,7 +8,7 @@ const stylish = (diff) => {
     const bracketIndent = ' '.repeat(4 * (depth - 1))
     const entries = Object.entries(value)
     const formatted = entries.map(
-      ([k, v]) => `${indent}${k}: ${formatValue(v, depth + 1)}`
+      ([k, v]) => `${indent}${k}: ${formatValue(v, depth + 1)}`,
     )
 
     return ['{', ...formatted, `${bracketIndent}}`].join('\n')
