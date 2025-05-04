@@ -14,13 +14,13 @@ export default defineConfig([
         describe: 'readonly',
         test: 'readonly',
         process: 'readonly',
-        __dirname: 'readonly'
+        __dirname: 'readonly',
       },
       parserOptions: {
-        ecmaVersion: 'latest'
+        ecmaVersion: 'latest',
       }
     },
     plugins: { js },
-    extends: ['js/recommended']
-  }
+    extends: ['js/recommended'],
+  },
 ])
